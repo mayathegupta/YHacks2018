@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Draw GeoJSON points</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoidG9yY2gtc3BhY2VhcHBzIiwiYSI6ImNqbmhvbTZibzAwY3YzcXIxajR3YzM2cXQifQ.IrDpB4AMKh9mP6XA-Ky0QA';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v9',
+    center: [-72.683333, 41.939167],
+    zoom: 4
+});
+
+map.on('load', function () {
+
+    map.addLayer({
+        "id": "points",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            // TODO Add all airport points
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-80.15275, 26.072583]
+                    },
+                    "properties": {
+                        "title": "FLL",
+                        "icon": "airport"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-70, 40]
+                    },
+                    "properties": {
+                        "title": "2013 Tesla Model S",
+                        "icon": "car",
+
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-72.683222, 41.939167]
+                    },
+                    "properties": {
+                        "title": "BDL",
+                        "icon": "airport"
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "text-field": "{title}",
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+        }
+    });
+
+
+});
+
+    var marker = new mapboxgl.Marker()
+        .setLngLat([-72.683222, 41.939167])
+        .addTo(map);
+
+</script>
+
+</body>
+</html>
