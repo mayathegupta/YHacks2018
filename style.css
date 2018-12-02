@@ -1,0 +1,41 @@
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 15%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px; !important
+  width: 200px; !important
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#smartcar-logo{
+  height: 100%;
+  position: absolute;
+}
+

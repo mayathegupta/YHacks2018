@@ -1,91 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8' />
-    <title>Draw GeoJSON points</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
-    <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
-    </style>
+    <meta charset="UTF-8">
+    <title>iFLEET</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css" type="text/css"/>
+
 </head>
 <body>
+<!--<div id="local-logic-widget"></div>-->
+<div id="floating-panel">
+    <input id="airport-code" type="textbox" value="Enter airport code ### ...">
+    <input id="enter" type="button" value="Enter">
+    <input id="lock-cars" type="button" value="Lock">
+</div>
+<div id="map"></div>
 
-<div id='map'></div>
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoidG9yY2gtc3BhY2VhcHBzIiwiYSI6ImNqbmhvbTZibzAwY3YzcXIxajR3YzM2cXQifQ.IrDpB4AMKh9mP6XA-Ky0QA';
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
-    center: [-72.683333, 41.939167],
-    zoom: 4
-});
-
-map.on('load', function () {
-
-    map.addLayer({
-        "id": "points",
-        "type": "symbol",
-        "source": {
-            "type": "geojson",
-            // TODO Add all airport points
-            "data": {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-80.15275, 26.072583]
-                    },
-                    "properties": {
-                        "title": "FLL",
-                        "icon": "airport"
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-70, 40]
-                    },
-                    "properties": {
-                        "title": "2013 Tesla Model S",
-                        "icon": "car",
-
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-72.683222, 41.939167]
-                    },
-                    "properties": {
-                        "title": "BDL",
-                        "icon": "airport"
-                    }
-                }]
-            }
-        },
-        "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-        }
-    });
-
-
-});
-
-    var marker = new mapboxgl.Marker()
-        .setLngLat([-72.683222, 41.939167])
-        .addTo(map);
-
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzZWuOjHBlLT8DoeoUOS8WvIA3DPTxaok&callback=initMap">
 </script>
 
+<!-- Map script -->
+<script src="./maps.js" type="text/javascript"></script>
+
+<!-- Map Icons -->
+<!-- <link rel="stylesheet" type="text/css" href="./dist/css/map-icons.css">
+<script type="text/javascript" src="./dist/js/map-icons.js"></script> -->
+
 </body>
+
+<footer>
+    <svg id="smartcar-logo" viewBox="0 0 703 220" fill="currentColor" width="100%" height="100%">
+        <path id="path0_fill" d="M109.705 0C49.121 0 0 49.118 0 109.697s49.121 109.697 109.705 109.697c60.583 0 109.704-49.118 109.704-109.697C219.409 49.117 170.288 0 109.705 0zm0 27.424c35.699 0 65.862 22.99 77.243 54.849H32.462c11.38-31.858 41.543-54.849 77.243-54.849zm0 95.985a13.71 13.71 0 0 1-9.697-23.408 13.714 13.714 0 1 1 14.946 22.367 13.72 13.72 0 0 1-5.249 1.041zm-82.279-13.712c37.47 0 67.815 36.101 68.458 80.88-38.783-6.642-68.458-40.253-68.458-80.88zm96.099 80.88c.643-44.779 30.988-80.88 68.458-80.88 0 40.627-29.675 74.238-68.458 80.88z"></path>
+        <path id="path1_fill" d="M43.845 15.493c-9.417-1.214-16.003-1.822-19.758-1.822-3.753 0-6.184.342-7.29 1.024-1.103.683-1.654 1.765-1.653 3.245.001 1.481.741 2.507 2.22 3.076 1.48.572 5.277 1.406 11.39 2.504 6.113 1.103 10.46 2.906 13.04 5.41 2.58 2.504 3.87 6.566 3.873 12.187 0 12.297-7.632 18.447-22.896 18.449-5.008 0-11.082-.684-18.224-2.052l-3.643-.682.457-12.753c9.418 1.213 15.967 1.82 19.65 1.82 3.681 0 6.187-.36 7.516-1.082a3.486 3.486 0 0 0 1.994-3.245c0-1.44-.701-2.504-2.105-3.19-1.403-.688-5.047-1.522-10.933-2.505-5.886-.988-10.27-2.659-13.154-5.012C1.445 28.512.002 24.317 0 18.281 0 12.245 2.05 7.688 6.152 4.614 10.252 1.54 15.53.001 21.982 0c4.48 0 10.593.721 18.34 2.163l3.758.682-.235 12.648z" transform="translate(266 87.25)"></path>
+        <path id="path2_fill" d="M15.264 58.316H0V1.369h15.148v3.186C20.391 1.52 24.872.002 28.59 0c6.152 0 10.897 1.784 14.236 5.353C49.811 1.786 56.19.001 61.963 0c7.517 0 12.738 2.183 15.663 6.55 2.925 4.366 4.386 11.333 4.383 20.9v30.866H66.745v-30.41c0-4.857-.532-8.445-1.595-10.764-1.064-2.314-3.19-3.472-6.378-3.474-2.433 0-5.395.532-8.886 1.595l-1.706.567c.301 5.695.454 10.023.457 12.985v29.497h-15.26V29.04c0-5.62-.494-9.587-1.48-11.904-.987-2.316-3.15-3.474-6.491-3.473a25.19 25.19 0 0 0-8.771 1.595l-1.371.457v42.601-.001z" transform="translate(322.7 87.13)"></path>
+        <path id="path3_fill" d="M47.385 19.13V42.82c.146 1.822.452 3.094.908 3.816.457.722 1.4 1.234 2.85 1.537l-.46 11.505c-3.871 0-6.964-.266-9.28-.798a20.862 20.862 0 0 1-7.007-3.19 37.885 37.885 0 0 1-16.744 3.983C5.882 59.674-.003 53.448 0 40.995c0-6.076 1.632-10.384 4.897-12.927 3.265-2.542 8.276-4.041 15.034-4.498l12.187-.914v-3.53c0-2.354-.531-3.967-1.595-4.84-1.064-.873-2.774-1.309-5.13-1.307l-21.412.914-.457-10.592A88.609 88.609 0 0 1 26.704 0c7.326 0 12.603 1.519 15.83 4.556 3.228 3.037 4.845 7.895 4.85 14.574zm-25.63 15.037c-4.249.381-6.375 2.659-6.378 6.833-.003 4.175 1.857 6.262 5.58 6.262a36.998 36.998 0 0 0 9.453-1.365l1.711-.46V33.248l-10.366.918z" transform="translate(414.5 87.14)"></path>
+        <path id="path4_fill" d="M0 58.311V1.365h15.148V7.4C21.522 3.608 27.595 1.14 33.368 0v15.373c-6.156 1.294-11.433 2.624-15.83 3.989l-2.279.798V58.31H0z" transform="translate(476.5 87.14)"></path>
+        <path id="path5_fill" d="M35.996 28.815H21.991v23.35c-.025 1.615.033 3.23.173 4.839.107.94.55 1.81 1.247 2.45.727.683 1.844 1.025 3.369 1.025l8.655-.229.683 12.187c-5.09 1.139-8.964 1.71-11.625 1.71-6.83 0-11.498-1.537-14.005-4.612-2.507-3.076-3.76-8.752-3.76-17.029V28.815H0V15.83h6.727V0h15.26v15.83H35.99v12.984h.005z" transform="translate(514.4 72.67)"></path>
+        <path id="path6_fill" d="M24.043 0c3.949 0 8.998.607 15.148 1.821l3.072.683-.461 12.072c-6-.608-10.442-.912-13.322-.915-5.239 0-8.713 1.12-10.422 3.36-1.71 2.239-2.563 6.47-2.56 12.696 0 6.226.853 10.498 2.56 12.816 1.706 2.318 5.218 3.476 10.535 3.474l13.207-.914.46 12.187c-8.129 1.598-14.318 2.397-18.567 2.397-8.43 0-14.487-2.372-18.17-7.117C1.842 47.818.002 40.206 0 29.724 0 19.247 1.898 11.675 5.695 7.007 9.492 2.34 15.608.004 24.043 0z" transform="translate(557.6 87.14)"></path>
+        <path id="path7_fill" d="M47.384 19.131v23.691c.155 1.822.46 3.094.908 3.816.461.722 1.41 1.234 2.85 1.538L50.69 59.68c-3.878 0-6.967-.27-9.29-.797a20.921 20.921 0 0 1-7.003-3.19 37.853 37.853 0 0 1-16.74 3.983C5.886 59.676 0 53.45 0 40.997c0-6.076 1.632-10.385 4.897-12.927 3.265-2.542 8.278-4.041 15.04-4.498l12.187-.914v-3.531c0-2.353-.536-3.966-1.591-4.84-1.064-.872-2.78-1.307-5.124-1.307l-21.415.915L3.534 3.3A88.635 88.635 0 0 1 26.714 0c7.321 0 12.598 1.519 15.83 4.556 3.233 3.037 4.846 7.895 4.84 14.575zM21.763 34.17c-4.26.381-6.378 2.659-6.378 6.833 0 4.175 1.862 6.262 5.577 6.262 3.2-.044 6.38-.503 9.462-1.364l1.706-.461V33.25l-10.367.918z" transform="translate(607.4 87.14)"></path>
+        <path id="path8_fill" d="M0 58.311V1.365h15.148V7.4C21.525 3.608 27.598 1.14 33.368 0v15.373c-6.147 1.294-11.424 2.624-15.831 3.99l-2.278.798v38.152L0 58.31z" transform="translate(669.3 87.14)"></path>
+      </svg>
+</footer>
+
 </html>

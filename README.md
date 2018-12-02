@@ -37,4 +37,3 @@ luxury, economy, or van rentals. It uses the smartcar API, WIX platform, and Twi
  ## Screenshots
  
  ![Homescreen](https://github.com/mayathegupta/YHacks2018/blob/master/assets/smartcar-logo.png)
- ![Points](https://github.com/digitalfabric92/maplist/blob/master/public/images/maplist_world_infowindow.png)
