@@ -29,7 +29,7 @@ if (!validator.isUUID(SMARTCAR_SECRET)) {
 
 // Redirect uri must be added to the application's allowed redirect uris
 // in the Smartcar developer portal
-const SMARTCAR_REDIRECT_URI = envvar.string('SMARTCAR_REDIRECT_URI', `http://localhost:${PORT}/callback`);
+const SMARTCAR_REDIRECT_URI = envvar.string('SMARTCAR_REDIRECT_URI', `https://ifleet.herokuapp.com/callback`);
 
 // Initialize Smartcar client
 const client = new smartcar.AuthClient({
