@@ -192,6 +192,34 @@ app.get('/vehicles', function(req, res, next) {
 
 });
 
+//lock
+app.post('/lock', function(req, res, next) {
+  const {access, vehicles} = req.session;
+  if (!access) {
+    return res.redirect('/');
+  }
+  const {accessToken} = access;
+  smartcar.getVehicleIds(accessToken)
+    .then(function(data) {
+      const vehicleIds = data.vehicles;
+      const vehicleLock = vehicleIds.map(vehicleId => {
+        const vehicle = new smartcar.Vehicle(vehicleId, accessToken);
+        return vehicle.lock();
+      });
+
+      return Promise.all(vehicleLock)
+        .then(function(data) {
+          res.send(data);
+        })
+        .catch(function(err) {
+          const message = err.message || 'Failed to get vehicle info.';
+          const action = 'fetching vehicle info';
+          return redirectToError(res, message, action);
+        });
+    });
+
+});
+
 /**
  * Triggers a request to the vehicle and renders the response.
  */
