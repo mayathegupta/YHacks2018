@@ -56,33 +56,11 @@
                     locations = event.data.markers;
                     infowindows = event.data.infowindows;
                     console.log(locations,infowindows);
-                    // let infowindow = new google.maps.InfoWindow();
+                    let infowindow = new google.maps.InfoWindow();
                     let map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 2,
                         streetViewControl: false,
                         center: hartford
-                    });
-
-                    var infos = infowindows.map(function (infowindowString) {
-                        let info = new google.maps.Infowindow({
-                            content: infowindowString.string; 
-                        })
-                        google.maps.event.addListener(info, 'mouseover', (function (info) {
-                            return function () {
-                                info.setContent(infowindowString.string);
-                                info.open(map, marker);
-                            }
-                        })(info));
-                        google.maps.event.addListener(info, 'mouseout', (function (info) {
-                            return function () {
-                                info.close();
-                            }
-                        })(info));
-                        google.maps.event.addListener(info, 'click', (function (info) {
-                            info.open(map, info);
-                            window.parent.postMessage(location.title, "*");
-                        }));
-                        return info;
                     });
 
                     // Add the markers to the map.
@@ -96,23 +74,24 @@
                         })
                         google.maps.event.addListener(marker, 'mouseover', (function (marker) {
                             return function () {
+                                console.log("MARKER, INFOWINDOWS", marker, infowindows.latLng)
                                 infowindow.setContent(location.title);
                                 infowindow.open(map, marker);
                             }
                         })(marker));
                         google.maps.event.addListener(marker, 'mouseout', (function (marker) {
                             return function () {
-                                infowindow.close();
+                                console.log("MARKER, INFOWINDOWS", marker, infowindows)
+                                // infowindow.close();
                             }
                         })(marker));
                         google.maps.event.addListener(marker, 'click', (function (marker) {
-                            console.log("marker click listener")
+                            console.log("marker click listener");
                             infowindow.open(map, marker);
                             window.parent.postMessage(location.title, "*");
                         }));
                         return marker;
                     });
-
 
                     // Add a marker clusterer to manage the markers.
                     var markerCluster = new MarkerClusterer(map, markers,

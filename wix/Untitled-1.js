@@ -3,10 +3,10 @@
     <title>Wix Code / Google Maps :: Multiple Markers</title>
 </head>
 <body>
-    <div id="map" style="height: 100%; width: 100%;" >
+    <div id="map" style="height: 100%; width: 100%;" />
     <script type="text/javascript">
 
-    let hartford = {lat: 41.939167, lng: -72.683333};
+    let barcelona = {lat: 41.38506389999999, lng: 2.1734035};
 
      /**
        * The RestoreControl adds a control to the map that resets the zoom,
@@ -40,13 +40,12 @@
 
             // Setup the click event listeners: simply set the map to Chicago.
             controlUI.addEventListener('click', function() {
-                map.setCenter(hartford);
+                map.setCenter(barcelona);
                 map.setZoom(2);
             });
         }
 
         let locations = null;
-        let infowindows = null;
         function init() {
             if(locations === null) { // if no locations, let page know
                 window.parent.postMessage("hello", "*");
@@ -54,35 +53,11 @@
             window.onmessage = (event) => {
                 if (event.data) {
                     locations = event.data.markers;
-                    infowindows = event.data.infowindows;
-                    console.log(locations,infowindows);
-                    // let infowindow = new google.maps.InfoWindow();
+                    let infowindow = new google.maps.InfoWindow();
                     let map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 2,
                         streetViewControl: false,
-                        center: hartford
-                    });
-
-                    var infos = infowindows.map(function (infowindowString) {
-                        let info = new google.maps.Infowindow({
-                            content: infowindowString.string; 
-                        })
-                        google.maps.event.addListener(info, 'mouseover', (function (info) {
-                            return function () {
-                                info.setContent(infowindowString.string);
-                                info.open(map, marker);
-                            }
-                        })(info));
-                        google.maps.event.addListener(info, 'mouseout', (function (info) {
-                            return function () {
-                                info.close();
-                            }
-                        })(info));
-                        google.maps.event.addListener(info, 'click', (function (info) {
-                            info.open(map, info);
-                            window.parent.postMessage(location.title, "*");
-                        }));
-                        return info;
+                        center: barcelona   //{lat: 41.38506389999999, lng: 2.1734035}    // Barcelona is a good center point
                     });
 
                     // Add the markers to the map.
@@ -106,13 +81,10 @@
                             }
                         })(marker));
                         google.maps.event.addListener(marker, 'click', (function (marker) {
-                            console.log("marker click listener")
-                            infowindow.open(map, marker);
                             window.parent.postMessage(location.title, "*");
                         }));
                         return marker;
                     });
-
 
                     // Add a marker clusterer to manage the markers.
                     var markerCluster = new MarkerClusterer(map, markers,
@@ -131,7 +103,7 @@
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>    
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzZWuOjHBlLT8DoeoUOS8WvIA3DPTxaok&callback=init">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAP_API_KEY&callback=init">
     </script>
 </body>
 </html>
